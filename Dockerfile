@@ -1,15 +1,8 @@
-FROM ubuntu:15.10
+FROM starefossen/ruby-node
 MAINTAINER iRoachie <kroach.work@gmail.com>
 
-LABEL Description: Docker image containing Jekyll, Node with Yarn
+LABEL Description: Docker image containing Jekyll, Node with Yarn, Gulp, Surge
 
-RUN apt-get update && \
-    apt-get install -y ruby ruby-dev nodejs npm gcc git rsync make && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
- 
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
-RUN gem install jekyll && \
-    npm update -g npm && \
-	npm install -g gulp yarn
+RUN gem install jekyll bundler
+RUN npm set progress=false && \
+    npm install -g --progress=false yarn surge gulp
